@@ -4,15 +4,13 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import id.erikgunawan.splashscreenplayground.nav.AppNavHost
 
 class MainActivity : ComponentActivity() {
 
@@ -22,18 +20,16 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
 
         setContent {
-            SplashScreenPlaygroundApp()
+            SplashScreenPlaygroundApp(onCampaignStartupFinished = ::reportFullyDrawn)
         }
     }
 }
 
 @Composable
-private fun SplashScreenPlaygroundApp() {
+private fun SplashScreenPlaygroundApp(onCampaignStartupFinished: () -> Unit) {
     MaterialTheme {
         Surface(modifier = Modifier.fillMaxSize()) {
-            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                Text(text = "Home")
-            }
+            AppNavHost(onCampaignStartupFinished = onCampaignStartupFinished)
         }
     }
 }

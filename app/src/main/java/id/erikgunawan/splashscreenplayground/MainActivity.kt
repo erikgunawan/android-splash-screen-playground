@@ -20,16 +20,16 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
 
         setContent {
-            SplashScreenPlaygroundApp()
+            SplashScreenPlaygroundApp(onCampaignStartupFinished = ::reportFullyDrawn)
         }
     }
 }
 
 @Composable
-private fun SplashScreenPlaygroundApp() {
+private fun SplashScreenPlaygroundApp(onCampaignStartupFinished: () -> Unit) {
     MaterialTheme {
         Surface(modifier = Modifier.fillMaxSize()) {
-            AppNavHost()
+            AppNavHost(onCampaignStartupFinished = onCampaignStartupFinished)
         }
     }
 }
